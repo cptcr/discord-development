@@ -1,6 +1,4 @@
-Below is an **enhanced and more detailed** `README.md` for your **Discord.js + TypeScript** project, supporting both **prefix** and **slash commands**. It includes comprehensive explanations, best practices, and links to relevant documentation.
 
----
 
 # Discord Bot — Prefix & Slash Command Hybrid
 
