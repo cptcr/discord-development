@@ -1,0 +1,28 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "npx tsc",
+    "start": "node /dist/src/index.js"
+  },
+  "keywords": [],
+  "author": "cptcr",
+  "license": "Apache-2.0",
+  "description": "A discord bot handler supporting TS and JS with support for SQL and mongodb.",
+  "dependencies": {
+    "@types/sequelize": "^4.28.20",
+    "chalk": "^5.4.1",
+    "discord.js": "^14.17.2",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
+    "mongoose": "^8.9.3",
+    "mysql2": "^3.12.0",
+    "path": "^0.12.7",
+    "tslog": "^4.9.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
