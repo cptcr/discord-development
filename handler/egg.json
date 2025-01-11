@@ -1,0 +1,82 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-02-13T17:26:13+0000",
+    "name": "Node.js Handler",
+    "author": "toowake@proton.me",
+    "description": "Creates a container to run Node.js projects with customization.",
+    "features": null,
+    "docker_images": {
+        "ghcr.io/parkervcp/yolks:nodejs_20": "ghcr.io/parkervcp/yolks:nodejs_20"
+    },
+    "file_denylist": [],
+    "startup": "{{CUSTOM_STARTUP_COMMAND}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Server is running\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\n\n# Update package list and install dependencies\napt update\napt install -y git curl jq\n\n# Clone the repository and copy files to root directory\ngit clone https://github.com/cptcr/discord-development.git /tmp/discord-development\ncp -r /tmp/discord-development/handler/* /mnt/server/\nrm -rf /tmp/discord-development\n\n# Install Node.js dependencies\ncd /mnt/server\nif [ -f \"package.json\" ]; then\n    npm install\nfi\n\n# Install TypeScript globally\nnpm install -g typescript\n\n# Install additional packages if specified\nif [ ! -z \"${ADDITIONAL_PACKAGES}\" ]; then\n    npm install ${ADDITIONAL_PACKAGES}\nfi\n\n# Uninstall specified packages\nif [ ! -z \"${UNINSTALL_PACKAGES}\" ]; then\n    npm uninstall ${UNINSTALL_PACKAGES}\nfi",
+            "container": "ghcr.io/parkervcp/yolks:debian",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Main File",
+            "description": "The main file to execute (e.g., index.js or main.ts).",
+            "env_variable": "MAIN_FILE",
+            "default_value": "index.js",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:50",
+            "field_type": "text"
+        },
+        {
+            "name": "Node Arguments",
+            "description": "Additional arguments to pass to Node.js or ts-node.",
+            "env_variable": "NODE_ARGS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:100",
+            "field_type": "text"
+        },
+        {
+            "name": "Additional Node Packages",
+            "description": "Space-separated list of additional Node.js packages to install.",
+            "env_variable": "ADDITIONAL_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:100",
+            "field_type": "text"
+        },
+        {
+            "name": "Uninstall Node Packages",
+            "description": "Space-separated list of Node.js packages to uninstall.",
+            "env_variable": "UNINSTALL_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:100",
+            "field_type": "text"
+        },
+        {
+            "name": "Startup Command",
+            "description": "Custom command to run at startup.",
+            "env_variable": "CUSTOM_STARTUP_COMMAND",
+            "default_value": "npx tsc && node ./dist/index.js",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        }
+    ]
+}

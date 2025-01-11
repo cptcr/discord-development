@@ -1,0 +1,32 @@
+{
+  "name": "discord-bot-handler-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Test: Done.\" && exit 1",
+    "compile": "npx tsc",
+    "start": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "cptcr",
+  "license": "Apache-2.0",
+  "description": "A discord bot handler supporting TS and JS with support for SQL and mongodb.",
+  "dependencies": {
+    "@types/readline-sync": "^1.4.8",
+    "@types/sequelize": "^4.28.20",
+    "chalk": "^4.1.2",
+    "discord.js": "^14.17.2",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
+    "inquirer": "^12.3.0",
+    "mongoose": "^8.9.3",
+    "mysql2": "^3.12.0",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.5",
+    "tslog": "^4.9.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

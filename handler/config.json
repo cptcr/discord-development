@@ -1,0 +1,27 @@
+{
+    "enabled-default-logs": {
+        "command-registry": true,
+        "startup": true,
+        "database-connection": true
+    },
+    "webhook": {
+        "config": {
+            "disabled": false,
+            "url": "",
+            "roleId": null
+        },
+        "webhook-events": {
+            "command-registry": true,
+            "startup": true,
+            "database-connection": true,
+            "errors": {
+                "fatal": true,
+                "debug": true,
+                "error": true,
+                "success": true,
+                "warn": true 
+            }
+        }
+    }
+    
+}

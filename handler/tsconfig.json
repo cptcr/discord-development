@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "target": "ES2022",                  // Compiles to the latest JavaScript (Node.js supports ES2022).
+      "module": "CommonJS",                // Use CommonJS (`require`/`module.exports`).
+      "outDir": "./dist",                  // Compiled files will go to `dist`.
+      "rootDir": "./src",                  // Source files are in the `src` directory.
+      "strict": true,                      // Enable strict type-checking.
+      "esModuleInterop": true,             // Interoperability with ESM modules (like `import fs from "fs"`).
+      "resolveJsonModule": true,           // Allow importing JSON files without extra syntax.
+      "allowSyntheticDefaultImports": true,// Enable default imports for CommonJS modules.
+      "forceConsistentCasingInFileNames": true, // Ensure consistent file naming.
+      "skipLibCheck": true,                // Skip type-checking in `node_modules`.
+      "moduleResolution": "node",          // Use Node.js module resolution for imports.
+      "declaration": true,                 // Generate `.d.ts` files for type declarations.
+      "sourceMap": true                    // Enable source maps for easier debugging.
+    },
+    "include": ["src/**/*"],               // Include all files in the `src` folder.
+    "exclude": ["node_modules", "dist"]    // Exclude `node_modules` and compiled output.
+  }
+  
