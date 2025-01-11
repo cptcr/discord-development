@@ -1,21 +1,135 @@
 import mongoose from 'mongoose';
 import { Sequelize } from 'sequelize';
 import { warn, debug, success, error, fatal } from '../utils/logs';
+import inquirer from 'inquirer';
+import fs from 'fs';
+import * as path from 'path';
+
+/**
+ * Overwrites only database credentials in the .env file located in the root directory.
+ */
+async function overwriteDatabaseCredentials(
+    dbType: string,
+    host: string,
+    user: string,
+    password: string,
+    database: string,
+    port: number
+): Promise<void> {
+    try {
+        const rootPath = path.resolve(__dirname, '../../'); // Adjust the relative path to point to the root
+        const envFilePath = path.join(rootPath, '.env');
+
+        const envContent = await fs.promises.readFile(envFilePath, 'utf8');
+        const envLines = envContent.split('\n');
+
+        const updatedEnvLines = envLines.map((line) => {
+            if (line.startsWith('export DB_TYPE')) {
+                return `export DB_TYPE = "${dbType}"`;
+            }
+            if (line.startsWith('export DB_HOST')) {
+                return `export DB_HOST = "${host}"`;
+            }
+            if (line.startsWith('export DB_USER')) {
+                return `export DB_USER = "${user}"`;
+            }
+            if (line.startsWith('export DB_PASS')) {
+                return `export DB_PASS = "${password}"`;
+            }
+            if (line.startsWith('export DB_NAME')) {
+                return `export DB_NAME = "${database}"`;
+            }
+            if (line.startsWith('export DB_PORT')) {
+                return `export DB_PORT = "${port}"`;
+            }
+            if (line.startsWith('export MONGO_HOST')) {
+                return `export MONGO_HOST = "${host}"`;
+            }
+            return line;
+        });
+
+        await fs.promises.writeFile(envFilePath, updatedEnvLines.join('\n'), 'utf8');
+        console.log('Database credentials successfully updated in the .env file!');
+    } catch (err) {
+        console.error('Error updating .env file:', err);
+    }
+}
+
+/**
+ * Retries the connection by prompting the user for new credentials.
+ */
+async function retry(dbType: string): Promise<any> {
+    const databaseOptions = [
+        'mongoose',
+        'mysql',
+        'postgres',
+        'mariadb',
+        'sqlite',
+        'mssql',
+    ];
+
+    if (dbType === 'mongoose') {
+        const mongoCredentials = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'uri',
+                message: 'Enter the MongoDB connection URI:',
+            },
+        ]);
+        return mongoCredentials.uri;
+    } else {
+        const sqlCredentials = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'host',
+                message: 'Enter the database server host (IP or domain):',
+            },
+            {
+                type: 'input',
+                name: 'port',
+                message: 'Enter the database server port:',
+                validate: (value) =>
+                    !isNaN(Number(value)) ? true : 'Please enter a valid port number.',
+            },
+            {
+                type: 'input',
+                name: 'user',
+                message: 'Enter the database user:',
+            },
+            {
+                type: 'password',
+                name: 'password',
+                message: 'Enter the database user password:',
+            },
+            {
+                type: 'input',
+                name: 'database',
+                message: 'Enter the name of the database:',
+            },
+        ]);
+
+        return sqlCredentials;
+    }
+}
 
 /**
  * Creates a connection to a MongoDB server.
  * @param {string} uri - The MongoDB connection string.
-*/
+ */
 async function connectToMongoDB(uri: string): Promise<void> {
-    await warn(true, 'Connecting to MongoDB server...'); // Logs a message to let the user know that a connection is attempted to make
+    await warn(true, 'Connecting to MongoDB server...');
     try {
-        // Create a new Mongoose connection
-        await mongoose.connect(uri); // Creates a connection to the mongoose server
+        await mongoose.connect(uri);
         await success(true, 'Successfully connected to MongoDB server!');
+
+        // Overwrite MongoDB credentials in .env
+        await overwriteDatabaseCredentials('mongoose', uri, '', '', '', 0);
     } catch (err) {
-        // Returns a fatal error if the connection fails
         await fatal(true, `Error connecting to MongoDB server: ${err}`);
-        process.exit(1); // Kills the current running process if the connection couldnt be established
+
+        // Retry connection
+        const retryUri = await retry('mongoose');
+        await connectToMongoDB(retryUri);
     }
 }
 
@@ -29,33 +143,43 @@ async function connectToMongoDB(uri: string): Promise<void> {
  * @param {string} database - The name of the database to connect to.
  * @param {string} dialect - The SQL database dialect (mysql, postgres, mariadb, sqlite, mssql).
  * @returns {Promise<Sequelize>} - The Sequelize database connection instance.
-*/
+ */
 async function connectToSQLServer(
     host: string,
-    port: any,
+    port: number,
     user: string,
     password: string,
     database: string,
-    dialect: 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mssql' // Supported Database Types
+    dialect: 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mssql'
 ): Promise<Sequelize> {
     await warn(true, `Connecting to ${dialect.toUpperCase()} database server...`);
     try {
-        // Create the connection to the SQL database server
         const sequelize = new Sequelize(database, user, password, {
             host,
             port,
             dialect,
-        }); // Creates a connection to the SQL Server with the given arguments.
+        });
 
-        // Test the connection
         await sequelize.authenticate();
         await success(true, `Successfully connected to ${dialect.toUpperCase()} server!`);
 
+        // Overwrite SQL database credentials in .env
+        await overwriteDatabaseCredentials(dialect, host, user, password, database, port);
+
         return sequelize;
     } catch (err) {
-        // Return a fatal error if the connection fails
         await fatal(true, `Error connecting to ${dialect.toUpperCase()} server: ${err}`);
-        process.exit(1); // Kills the current running process if the connection couldnt be established
+
+        // Retry connection
+        const sqlCredentials = await retry(dialect);
+        return await connectToSQLServer(
+            sqlCredentials.host,
+            parseInt(sqlCredentials.port),
+            sqlCredentials.user,
+            sqlCredentials.password,
+            sqlCredentials.database,
+            dialect
+        );
     }
 }
 
