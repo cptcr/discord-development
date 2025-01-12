@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" conent="cptcr">
+  <meta name="description" content="The official documentation for the TypeScript based discord bot handler.">
+  <title>TypeScript Discord Bot Handler - Documentation</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Highlight.js (CSS + JS) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css"
+/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+  <style>
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    /* Code blocks */
+    pre {
+      overflow-x: auto;
+      white-space: pre-wrap;  /* Wrap code lines */
+      word-wrap: break-word;
+      position: relative;     /* For copy button positioning */
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Hide copy button by default, show on hover */
+    .copy-btn {
+      display: none;
+    }
+    pre.group:hover .copy-btn {
+      display: inline-flex;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+  <!-- Sidebar -->
+  <aside
+    class="w-64 bg-gray-800 h-screen fixed top-0 left-0 flex flex-col shadow-lg"
+  >
+    <!-- Sidebar Header -->
+    <div class="px-6 py-4 bg-gray-800 border-b border-gray-700">
+      <h2 class="text-2xl font-bold text-blue-500">Documentation</h2>
+    </div>
+
+    <!-- Sidebar Nav -->
+    <nav class="flex-1 overflow-y-auto px-4 py-4">
+      <ul class="space-y-2">
+        <!-- Top-level items -->
+        <li>
+          <a
+            href="#features"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            Features
+          </a>
+        </li>
+        <li>
+          <a
+            href="#installation"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            Installation
+          </a>
+        </li>
+        <li>
+          <a
+            href="#configuration"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            Configuration
+          </a>
+        </li>
+
+        <!-- Example sub-list for "Configuration" -->
+        <li class="pl-3">
+          <ul class="space-y-1 mt-1 border-l border-gray-700 ml-3">
+            <li>
+              <a
+                href="#events-logs"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Events and Logs
+              </a>
+            </li>
+            <li>
+              <a
+                href="#bot-config"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Bot Configuration
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a
+            href="#documentation"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            Documentation
+          </a>
+        </li>
+
+        <!-- Example sub-list for "Documentation" -->
+        <li class="pl-3">
+          <ul class="space-y-1 mt-1 border-l border-gray-700 ml-3">
+            <li>
+              <a
+                href="#slash-commands"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Slash Commands
+              </a>
+            </li>
+            <li>
+              <a
+                href="#prefix-commands"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Prefix Commands
+              </a>
+            </li>
+            <li>
+              <a
+                href="#custom-events"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Custom Events
+              </a>
+            </li>
+            <li>
+              <a
+                href="#schedules"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Schedules
+              </a>
+            </li>
+            <li>
+              <a
+                href="#database"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Database Configuration
+              </a>
+            </li>
+            <li>
+              <a
+                href="#cache"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Cache System
+              </a>
+            </li>
+            <li>
+              <a
+                href="#plugins"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Developing Plugins
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Remaining top-level items -->
+        <li>
+          <a
+            href="#credits"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            Credits
+          </a>
+        </li>
+        <li>
+          <a
+            href="#license"
+            class="block px-2 py-2 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+          >
+            License
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="ml-64 p-8 min-h-screen">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-8 text-blue-500">
+        TypeScript Discord Bot Handler
+      </h1>
+      <p class="mb-8 text-gray-300">
+        A simple discord bot handler with advanced features and high
+        customization.
+      </p>
+
+      <!-- Features Section -->
+      <section id="features" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Slash Command Handler</p>
+            <p class="text-gray-400">
+              Simple command handler for slash commands
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Prefix Command Handler</p>
+            <p class="text-gray-400">
+              Simple command handler for prefix commands
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Sharding Agent</p>
+            <p class="text-gray-400">
+              Shard your bot to make it more efficient
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Dynamic Database Support</p>
+            <p class="text-gray-400">
+              Supports various types of databases
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">WebHook Events</p>
+            <p class="text-gray-400">
+              Get notified when something happens
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Event Handler</p>
+            <p class="text-gray-400">
+              Build-in event handler for Discord events
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Scheduled Tasks</p>
+            <p class="text-gray-400">Automate recurring actions</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">File Cache System</p>
+            <p class="text-gray-400">Store data in files for faster access</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Plugin System</p>
+            <p class="text-gray-400">
+              Load plugins to extend functionality
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Installation Section -->
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">Installation</h2>
+        <div class="space-y-4">
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">1. Clone the repository:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-bash">
+git clone https://github.com/cptcr/discord-development/tree/main/handler.git
+              </code>
+            </pre>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">2. Install dependencies:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-bash">npm i</code>
+            </pre>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">
+              3. Configure the code (See Configuration section)
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">4. Start the bot:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-bash">npx ts-node src/shard.ts</code>
+            </pre>
+            <p class="text-gray-300 mt-2">or:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-bash">npm run start</code>
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Configuration Section -->
+      <section id="configuration" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">Configuration</h2>
+
+        <!-- Events and Logs -->
+        <div id="events-logs" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">Events and Logs</h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">File: config.json</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-json">{
+                "enabled-default-logs": {
+                    "command-registry": true, // Enable command registry logs
+                    "startup": true, // Enable startup logs
+                    "database-connection": true , // Enable database connection logs
+                },
+                "webhook": {
+                    "config": {
+                        "disabled": false, // Disable webhook events
+                        "url": "https://discord.com/api/webhooks/", // Your webhook url
+                        "roleId": null , // Role ID to ping when a event happens (nullable)
+                    },
+                    "webhook-events": {
+                        "command-registry": true, // Enable command registry webhook events
+                        "startup": true, // Enable startup webhook events
+                        "database-connection": true, // Enable database connection webhook events
+                        "errors": {
+                            "fatal": true, // Enable fatal error webhook events
+                            "debug": true, // Enable debug error webhook events
+                            "error": true, // Enable error webhook events
+                            "success": true, // Enable success webhook events
+                            "warn": true, // Enable warn webhook events
+                            "info": true // Enable info webhook events
+                        }
+                    }
+                }
+                
+            }
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Bot Configuration -->
+        <div id="bot-config" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">Bot Configuration</h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">File: .env</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-bash">#=============================
+                #=============================
+                #        DISCORD BOT
+                #=============================
+                # Discord bot credentials and settings
+                export DISCORD_TOKEN = "";   # Your Discord bot token (required to authenticate with the Discord API)
+                export DISCORD_ID = "";      # Bot ID (unique identifier for your bot)
+                export PREFIX = "";          # Prefix for text-based bot commands (e.g., "!", "?")
+                export GUILD_ID = ;          # Guild (server) ID for faster slash command updates
+                
+                #=============================
+                #    DATABASE CONFIGURATION
+                #=============================
+                # Type of database to connect to. Supported values:
+                #  - mysql
+                #  - postgres
+                #  - mariadb
+                #  - sqlite
+                #  - mssql
+                #  - mongoose (for MongoDB)
+                export DB_TYPE = "mongoose";  # Specify the database type here (e.g., mysql, mongoose)
+                
+                #=============================
+                #       SQL DATABASE
+                #=============================
+                # SQL database connection details (only required if DB_TYPE is a SQL-based database)
+                export DB_HOST = "";         # Database server hostname (IP or domain)
+                export DB_USER = "";         # Database username
+                export DB_PASS = "";         # Database password
+                export DB_NAME = "";         # Database name to connect to
+                export DB_PORT = "";         # Port number for the database server (default ports vary by DB type)
+                
+                #=============================
+                #      MONGODB DATABASE
+                #=============================
+                # MongoDB connection details (only required if DB_TYPE is "mongoose")
+                export MONGO_HOST = "";      
+                # MongoDB connection string (e.g., mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>) Warning: This may or may not be different if you use a self hosted MongoDB server
+</code>
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Documentation Section -->
+      <section id="documentation" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">Documentation</h2>
+
+        <!-- Slash Commands -->
+        <div id="slash-commands" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">
+            Deploying Slash Commands
+          </h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">Directory: src/slash</p>
+            <p class="text-gray-300 mb-2">Example code:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// src/slash/fun/ping.ts
+
+                // Import required modules from discord.js
+                import { SlashCommandBuilder, ChatInputCommandInteraction, Client } from "discord.js";
+                // Import SlashCommand Interface to build a command (required)
+                import { SlashCommand } from "../../dev/Interfaces/Command.js";
+                
+                // Define the command
+                const pingCommand: SlashCommand = {
+                  // Command Data (required)
+                  data: new SlashCommandBuilder() // Discord.js SlashCommandBuilder to build a command and return json data for the discord api
+                  .setName("ping") // The command name
+                  .setDescription("Replies with Pong!"), // The command description
+                
+                  // Execute function (required)
+                  async execute(client: Client, interaction: ChatInputCommandInteraction) {
+                    // Handle the command logic
+                    await interaction.reply("Pong! 🏓");
+                  },
+                };
+                
+                // MUST BE EXPORTED AS DEFAULT
+                export default pingCommand;
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Prefix Commands -->
+        <div id="prefix-commands" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">
+            Deploying Prefix Commands
+          </h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">Directory: src/prefix</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// src/prefix/fun/ping.ts
+
+                // Import PrefixCommand Interface to build a command (required)
+                import { PrefixCommand } from "../../dev/Interfaces/Command";
+                // Import required modules from discord.js
+                import { Client, Message } from "discord.js";
+                
+                // Define the command
+                const pingCommand: PrefixCommand = {
+                  name: "ping", // The command name (required)
+                  aliases: ["p"], // The command aliases (?ping and ?p will work and return the same result) (required)
+                  description: "Replies with Pong!", // The command description (required)
+                
+                  // Execute function (required)
+                  async execute(client: Client, message: Message, args: string[]) {
+                
+                    // Handle the command logic
+                    await message.reply("Pong! 🏓");
+                  }
+                };
+                
+                // MUST BE EXPORTED AS DEFAULT
+                export default pingCommand;
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Custom Events -->
+        <div id="custom-events" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">Custom Events</h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">Directory: src/events</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// Import required modules from discord.js
+                import { Client, GuildMember } from 'discord.js';
+                // Import Event Interface to build the event (required)
+                import  Event  from '../../dev/Interfaces/Event';
+                // Import info log to display that a member joined the server (optional)
+                import { info } from '../../dev/utils/logs';
+                
+                // Exporting the Event
+                export default {
+                  name: 'guildMemberAdd', // The event name, must be the same as the event name in discord.js (required)
+                  once: false, // Whether the event should only be triggered once (optional, default: false)
+                  execute(client: Client, member: GuildMember) { // The event function (required)
+                    info(true, `${member.user.tag} joined ${member.guild.name}`); // Display a message in the console
+                    // Additional logic for welcoming the new member, etc.
+                  },
+                } as Event;
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Schedules -->
+        <div id="schedules" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">Schedules</h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">Directory: src/schedules</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// Import the Schedule Interface
+                import { Schedule } from '../dev/Interfaces/Schedule';
+                // Import Discord Modules (required: Client)
+                import { Client } from 'discord.js';
+                
+                export default {
+                  name: 'dailyReminder', // Name of the schedule
+                  cron: '0 9 * * *', // runs every day at 9:00 AM server time 
+                  async run(client: Client) {
+                    // Handle the logic here
+                  },
+                } as Schedule;
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Database Configuration -->
+        <div id="database" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">
+            Database Configuration
+          </h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">MongoDB Configuration:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">import database from "database";
+database();
+</code>
+            </pre>
+            <p class="text-gray-300 mt-2">SQL Database Configuration:</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">import database from "database";
+const db = database(); // This will return the database object which is declared as the variable "db" to be used in your code.
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Cache System -->
+        <div id="cache" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">Cache System</h3>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-300 mb-2">Basic Usage:</p>
+            <p>Caches the data in a map.</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// Example command file: /src/commands/fetchUser.ts
+                import { globalCache } from '../dev/utils/globalCache';
+                
+                export async function fetchUser(userId: string) {
+                  const cacheKey = `user:${userId}`;
+                
+                  // 1. Check cache
+                  let data = globalCache.get(cacheKey);
+                
+                  // 2. If not found, fetch from some imaginary function or API
+                  if (!data) {
+                    data = await fakeDatabaseCallOrExternalAPI(userId);
+                
+                    // 3. Store it in the cache with a 10-minute TTL
+                    globalCache.set(cacheKey, data, 600);
+                  }
+                
+                  // Return the data (from cache or freshly fetched)
+                  return data;
+                }
+                
+                async function fakeDatabaseCallOrExternalAPI(userId: string): Promise<any> {
+                  // Just an example function
+                  return { id: userId, name: 'John Doe' };
+                }
+</code>
+            </pre>
+            <p class="text-gray-300 mt-4 mb-2">Cache With File:</p>
+            <p>Caches the data in a json file.</p>
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// /src/index.ts
+
+                import { FileCache } from './dev/utils/cacheWithFile';
+                
+                // Create an instance of FileCache
+                // By default, it writes to and reads from "cacheData.json" in the same folder.
+                export const fileCache = new FileCache('cacheData.json');
+
+// Usage example
+import { fileCache } from '../index'; // Import the same instance from index.ts
+
+export async function handleWelcomeCommand(args: string[]) {
+  // If the user types something like "!welcome set Hello Everyone!"
+  // Then 'args' might be ["set", "Hello", "Everyone!"] etc.
+
+  const subCommand = args[0];
+
+  if (subCommand === 'set') {
+    // The rest of args is the new message
+    const newMessage = args.slice(1).join(' ');
+    fileCache.set('welcomeMessage', newMessage);
+    return `Set welcome message to: "${newMessage}"`;
+  } 
+  
+  else if (subCommand === 'get') {
+    const storedMessage = fileCache.get('welcomeMessage');
+    return storedMessage 
+      ? `Current welcome message: "${storedMessage}"`
+      : `No welcome message set yet.`;
+  }
+  
+  else {
+    return `Usage: !welcome [set|get] [message]`;
+  }
+}
+</code>
+            </pre>
+          </div>
+        </div>
+
+        <!-- Developing Plugins -->
+        <div id="plugins" class="mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-blue-300">
+            Developing Plugins
+          </h3>
+          <p class="text-gray-300 mb-4">
+            Plugins are used to extend the functionality of the bot. They can be
+            used to add new commands, modify existing ones, or even create new
+            features.
+          </p>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <pre class="bg-gray-900 p-3 rounded relative group">
+              <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+              <code class="language-typescript">// Import the Interface to build a plugin
+                import Plugin from '../dev/Interfaces/Plugin';
+                
+                const HelloPlugin: Plugin = { // Define the plugin
+                  name: 'my-bot-plugin-hello', // Unique name for the plugin
+                  version: '1.0.0', // Version of the plugin
+                  github: "https://github.com/cptcr/discord-development/tree/main/handler/src/plugins/example.ts", // GitHub link to the plugin
+                  author: "cptcr" // Author of the plugin
+                  
+                  async onLoad(client, botConfig) {
+                    // Logic of the plugin
+                  },
+                
+                  onUnload() {
+                    // Optionally remove the event listener or cleanup
+                    // But depends on whether your code can actually unhook events dynamically
+                  }
+                };
+                
+                export default HelloPlugin;
+</code>
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credits Section -->
+      <section id="credits" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">Credits</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">Node.js</h3>
+            <p class="text-gray-300">
+              For the Node.js runtime environment
+            </p>
+            <a
+              href="https://nodejs.org/"
+              class="text-blue-400 hover:text-blue-300"
+            >nodejs.org</a>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">Discord.js</h3>
+            <p class="text-gray-300">For handling the Discord API</p>
+            <a
+              href="https://discord.js.org"
+              class="text-blue-400 hover:text-blue-300"
+            >discord.js.org</a>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">Mongoose</h3>
+            <p class="text-gray-300">For handling the MongoDB database</p>
+            <a
+              href="https://mongoosejs.com/"
+              class="text-blue-400 hover:text-blue-300"
+            >mongoosejs.com</a>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">Sequelize</h3>
+            <p class="text-gray-300">For handling multiple databases</p>
+            <a
+              href="https://sequelize.org/"
+              class="text-blue-400 hover:text-blue-300"
+            >sequelize.org</a>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">TypeScript</h3>
+            <p class="text-gray-300">For type checking and compilation</p>
+            <a
+              href="https://www.typescriptlang.org/"
+              class="text-blue-400 hover:text-blue-300"
+            >typescriptlang.org</a>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <h3 class="font-semibold mb-2">Additional Tools</h3>
+            <ul class="space-y-1 text-gray-300">
+              <li>Chalk - For colorful console output</li>
+              <li>Inquirer - For user input handling</li>
+              <li>Dotenv - For environment variables</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- License Section -->
+      <section id="license" class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-400">License</h2>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <p class="text-gray-300">
+            This project is licensed under the Apache 2.0 License which is a
+            permissive free software license written by the Apache Software
+            Foundation. The license allows users to freely use, modify, and
+            distribute the software.
+          </p>
+          <a
+            href="https://www.apache.org/licenses/LICENSE-2.0"
+            class="text-blue-400 hover:text-blue-300 mt-2 inline-block"
+          >View License</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Initialize Highlight.js & Copy Buttons -->
+  <script>
+    // Highlight all code blocks
+    hljs.highlightAll();
+
+    // Add copy button functionality
+    document.querySelectorAll('pre.group, pre.bg-gray-900').forEach((pre) => {
+      const codeBlock = pre.querySelector('code');
+      const copyButton = pre.querySelector('.copy-btn');
+      if (!codeBlock || !copyButton) return;
+
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(codeBlock.innerText.trim());
+          copyButton.textContent = 'Copied!';
+          setTimeout(() => {
+            copyButton.textContent = 'Copy';
+          }, 2000);
+        } catch (err) {
+          copyButton.textContent = 'Error';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
