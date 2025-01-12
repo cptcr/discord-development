@@ -1,11 +1,14 @@
 import Plugin from '../dev/Interfaces/Plugin';
 
 const HelloPlugin: Plugin = {
-  name: 'my-bot-plugin-hello',
+  name: 'example',
   version: '1.0.0',
   
   async onLoad(client, botConfig) {
-    // Logic of the plugin
+    client.on("ready", async () => {
+        // Plugin Logic
+        console.log("Wohoo the plugin works!")
+    })
   },
 
   onUnload() {

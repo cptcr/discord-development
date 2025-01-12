@@ -644,13 +644,18 @@ export async function handleWelcomeCommand(args: string[]) {
         <!-- Developing Plugins -->
         <div id="plugins" class="mb-8">
           <h3 class="text-xl font-semibold mb-4 text-blue-300">
-            Developing Plugins
+            Developing Plugins & Importing Plugins
           </h3>
           <p class="text-gray-300 mb-4">
             Plugins are used to extend the functionality of the bot. They can be
             used to add new commands, modify existing ones, or even create new
             features.
-          </p>
+          </p> <br>
+          <p>
+            <h3>Requirements for developing and importing Plugins:</h3>
+            <li>Plugin File Name MUST be the same as the plugin name.</li>
+            <li>If you add a plugin, make sure to add the plugin name into config.json["plugins"] array.</li>
+          </p> <br>
           <div class="bg-gray-800 p-4 rounded-lg">
             <pre class="bg-gray-900 p-3 rounded relative group">
               <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>

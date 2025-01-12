@@ -155,10 +155,10 @@ client.on("messageCreate", async (message) => {
         await loadEvents(client);
         await initScheduler(client);
         await loadPlugins(client);
-        await client.login(DISCORD_TOKEN).catch(err =>
+        await client.login(DISCORD_TOKEN).then(() => info(true, "Client logged in")).catch(err =>
             error(true, `Failed to log in: ${err}`)
         );
     } catch (err) {
-        fatal(true, `Bot failed to login or load events: ${String(err)}`);
+        fatal(true, `Startup failed: ${String(err)}`);
     }
-})
+})();

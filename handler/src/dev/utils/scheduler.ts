@@ -35,7 +35,7 @@ function getAllScheduleFiles(dir: string): string[] {
 export async function initScheduler(client: Client): Promise<void> {
   try {
     // Full path to the /src/schedules directory
-    const schedulesDir = path.join(__dirname, '../../../schedules');
+    const schedulesDir = path.join(__dirname, '../../schedules');
     const scheduleFiles = getAllScheduleFiles(schedulesDir);
 
     // If no schedule files are found, just log a warning (optional)

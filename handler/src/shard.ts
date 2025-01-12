@@ -18,4 +18,8 @@ token:
 The token of the bot (the token that you get from the discord developer portal)
 */
 
+(async () => {
+    console.log("Hello World")
+});
+
 setupSharding(false, "src/index.ts", DISCORD_TOKEN);

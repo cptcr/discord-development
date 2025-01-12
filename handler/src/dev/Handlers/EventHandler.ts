@@ -30,7 +30,7 @@ function getAllEventFiles(dir: string): string[] {
 export default async function loadEvents(client: Client): Promise<void> {
   try {
     // Adjust this path if your Events folder is located elsewhere
-    const eventsPath = path.join(__dirname, '..', 'Events');
+    const eventsPath = path.join(__dirname, '..', '..','events');
     const eventFiles = getAllEventFiles(eventsPath);
 
     for (const filePath of eventFiles) {
