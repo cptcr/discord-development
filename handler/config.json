@@ -1,4 +1,7 @@
 {
+    "plugins": [
+        "my-bot-plugin-hello"
+    ],
     "enabled-default-logs": {
         "command-registry": true,
         "startup": true,
@@ -11,16 +14,16 @@
             "roleId": null
         },
         "webhook-events": {
-            "command-registry": true,
-            "startup": true,
-            "database-connection": true,
+            "command-registry": false,
+            "startup": false,
+            "database-connection": false,
             "errors": {
                 "fatal": true,
                 "debug": true,
                 "error": true,
-                "success": true,
+                "success": false,
                 "warn": true,
-                "info": true
+                "info": false
             }
         }
     }

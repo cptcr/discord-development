@@ -1,13 +1,16 @@
 // src/index.ts
 
 import { Client, GatewayIntentBits, Partials, Events } from "discord.js";
-import { warn, success, error } from "./dev/utils/logs";
+import { warn, success, error, fatal, debug, info } from "./dev/utils/logs";
 import {
   loadSlashCommands,
   loadPrefixCommands,
   slashCommands,
   prefixCommands
 } from "./dev/Handlers/CommandHandler";
+import loadEvents from "./dev/Handlers/EventHandler";
+import { initScheduler } from "./dev/utils/scheduler";
+import { loadPlugins } from "./dev/Handlers/PluginHandler";
 //import * as config from "../config.json";
 const config = require("../config.json");
 
@@ -20,13 +23,29 @@ const db = database();
 /************************************************
  * 1) Create Discord Client
  ************************************************/
+
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.GuildMembers
+    //Guild
+        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.GuildMessages, 
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildModeration,
+        GatewayIntentBits.GuildMessagePolls,
+        GatewayIntentBits.GuildScheduledEvents,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildIntegrations,
+    //Direct
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.DirectMessageTyping,
+    //Message
+        GatewayIntentBits.MessageContent,
+    //Automod
+        GatewayIntentBits.AutoModerationConfiguration,
+        GatewayIntentBits.AutoModerationExecution,
   ],
   partials: [
     Partials.Channel,
@@ -36,7 +55,11 @@ const client = new Client({
     Partials.GuildMember,
     Partials.GuildScheduledEvent,
     Partials.ThreadMember
-  ]
+  ],
+  allowedMentions: {
+    parse: [ "roles", "users" ],
+    repliedUser: true
+  }  
 });
 
 const DISCORD_TOKEN = `${process.env.DISCORD_TOKEN}`;
@@ -118,8 +141,18 @@ client.on("messageCreate", async (message) => {
 });
 
 /************************************************
- * 6) Log In the Bot
+ * 6) Log In the Bot and load custom Events
  ************************************************/
-client.login(DISCORD_TOKEN).catch(err =>
-    error(true, `Failed to log in: ${err}`)
-);
+
+(async () => {
+    try { 
+        await loadEvents(client);
+        await initScheduler(client);
+        await loadPlugins(client);
+        await client.login(DISCORD_TOKEN).catch(err =>
+            error(true, `Failed to log in: ${err}`)
+        );
+    } catch (err) {
+        fatal(true, `Bot failed to login or load events: ${String(err)}`);
+    }
+})

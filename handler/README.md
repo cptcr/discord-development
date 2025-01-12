@@ -7,6 +7,10 @@ A simple discord bot handler with advanced features and a high customization. <b
 - **Sharding Agent:** Shard your bot to make it more efficient.
 - **Dynamic Database Support:** Supports variuos types of databases. Doesnt matter if you use a SQL based database or a MongoDB database.
 - **WebHook Events:** Supports WebHook events so you can get notified when something happens.
+- **Event Handler:** Build-in event handler so you can build files to respond to events from discord.
+- **Scheduled Tasks:** Automate recurring actions.
+- **File Cache System**: Store data in files for faster access.
+- **Plugin System:** Load plugins to extend the functionality of your bot.
 
 # Installation
 1. Clone the repository.
@@ -172,6 +176,45 @@ const pingCommand: PrefixCommand = {
 export default pingCommand;
 ```
 
+## Custom Events
+Directory: src/events
+
+```ts
+// Import required modules from discord.js
+import { Client, GuildMember } from 'discord.js';
+// Import Event Interface to build the event (required)
+import  Event  from '../../dev/Interfaces/Event';
+// Import info log to display that a member joined the server (optional)
+import { info } from '../../dev/utils/logs';
+
+// Exporting the Event
+export default {
+  name: 'guildMemberAdd', // The event name, must be the same as the event name in discord.js (required)
+  once: false, // Whether the event should only be triggered once (optional, default: false)
+  execute(client: Client, member: GuildMember) { // The event function (required)
+    info(true, `${member.user.tag} joined ${member.guild.name}`); // Display a message in the console
+    // Additional logic for welcoming the new member, etc.
+  },
+} as Event;
+```
+
+## Schedules
+Directory: src/schedules
+```ts
+// Import the Schedule Interface
+import { Schedule } from '../dev/Interfaces/Schedule';
+// Import Discord Modules (required: Client)
+import { Client } from 'discord.js';
+
+export default {
+  name: 'dailyReminder', // Name of the schedule
+  cron: '0 9 * * *', // runs every day at 9:00 AM server time 
+  async run(client: Client) {
+    // Handle the logic here
+  },
+} as Schedule;
+```
+
 ## Database Configuration
 Directory: src
 File: index.ts
@@ -190,9 +233,112 @@ const db = database();
 ```
 This will return the database object which is declared as the variable "db" to be used in your code.
 
+## Cache System
+Directory: - Works Everywhere -
+Global Cache File: /src/dev/utils/globalCache.ts
+Cache Logic File: /src/dev/utils/cache.ts
+Cache With File: /src/dev/utils/cacheWithFile.ts
+
+Example Usage (basic):
+```ts
+// Example command file: /src/commands/fetchUser.ts
+import { globalCache } from '../dev/utils/globalCache';
+
+export async function fetchUser(userId: string) {
+  const cacheKey = `user:${userId}`;
+
+  // 1. Check cache
+  let data = globalCache.get(cacheKey);
+
+  // 2. If not found, fetch from some imaginary function or API
+  if (!data) {
+    data = await fakeDatabaseCallOrExternalAPI(userId);
+
+    // 3. Store it in the cache with a 10-minute TTL
+    globalCache.set(cacheKey, data, 600);
+  }
+
+  // Return the data (from cache or freshly fetched)
+  return data;
+}
+
+async function fakeDatabaseCallOrExternalAPI(userId: string): Promise<any> {
+  // Just an example function
+  return { id: userId, name: 'John Doe' };
+}
+```
+
+Example Usage (ChacheWithFile):
+1. Add configuration to index.ts
+```ts
+// /src/index.ts
+
+import { FileCache } from './dev/utils/cacheWithFile';
+
+// Create an instance of FileCache
+// By default, it writes to and reads from "cacheData.json" in the same folder.
+export const fileCache = new FileCache('cacheData.json');
+```
+2. Usage of the file cache
+```ts
+import { fileCache } from '../index'; // Import the same instance from index.ts
+
+export async function handleWelcomeCommand(args: string[]) {
+  // If the user types something like "!welcome set Hello Everyone!"
+  // Then 'args' might be ["set", "Hello", "Everyone!"] etc.
+
+  const subCommand = args[0];
+
+  if (subCommand === 'set') {
+    // The rest of args is the new message
+    const newMessage = args.slice(1).join(' ');
+    fileCache.set('welcomeMessage', newMessage);
+    return `Set welcome message to: "${newMessage}"`;
+  } 
+  
+  else if (subCommand === 'get') {
+    const storedMessage = fileCache.get('welcomeMessage');
+    return storedMessage 
+      ? `Current welcome message: "${storedMessage}"`
+      : `No welcome message set yet.`;
+  }
+  
+  else {
+    return `Usage: !welcome [set|get] [message]`;
+  }
+}
+```
+
+## Developing a Plugin
+What are plugins used to? <br>
+Plugins are used to extend the functionality of the bot. They can be used to add new commands, modify existing ones, or even create new features. <br>
+Here's an example of how to create a plugin:
+```ts
+// Import the Interface to build a plugin
+import Plugin from '../dev/Interfaces/Plugin';
+
+const HelloPlugin: Plugin = { // Define the plugin
+  name: 'my-bot-plugin-hello', // Unique name for the plugin
+  version: '1.0.0', // Version of the plugin
+  github: "https://github.com/cptcr/discord-development/tree/main/handler/src/plugins/example.ts", // GitHub link to the plugin
+  author: "cptcr" // Author of the plugin
+  
+  async onLoad(client, botConfig) {
+    // Logic of the plugin
+  },
+
+  onUnload() {
+    // Optionally remove the event listener or cleanup
+    // But depends on whether your code can actually unhook events dynamically
+  }
+};
+
+export default HelloPlugin;
+```
+
 # Credits
 - Node.js: 
-For the Node.js runtime environment, which allows us to run JavaScript on the server-side.
+For the Node.js runtime environment, which allows us to run JavaScript on the server-side. <br>
 https://nodejs.org/
 - Discord.js: 
 For handling the Discord API easyli. <br>

@@ -7,13 +7,15 @@
     "test": "echo \"Test: Done.\" && exit 1",
     "compile": "npx tsc",
     "start": "npx ts-node src/shard.ts",
-    "tsc": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js"
+    "tsc": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly src/shard.ts"
   },
   "keywords": [],
   "author": "cptcr",
   "license": "Apache-2.0",
   "description": "A discord bot handler supporting TS and JS with support for SQL and mongodb.",
   "dependencies": {
+    "@types/node-cron": "^3.0.11",
     "@types/readline-sync": "^1.4.8",
     "@types/sequelize": "^4.28.20",
     "chalk": "^4.1.2",
@@ -28,6 +30,7 @@
     "tslog": "^4.9.3"
   },
   "devDependencies": {
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2"
   }
 }
