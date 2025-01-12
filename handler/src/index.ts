@@ -15,7 +15,7 @@ import env from "dotenv";
 env.config();
 
 import database from "./database";
-database();
+const db = database();
 
 /************************************************
  * 1) Create Discord Client

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Test: Done.\" && exit 1",
     "compile": "npx tsc",
-    "start": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js"
+    "start": "npx ts-node src/shard.ts",
+    "tsc": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js"
   },
   "keywords": [],
   "author": "cptcr",

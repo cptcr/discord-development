@@ -1,7 +1,7 @@
 // src/slash/fun/ping.ts
 
 import { SlashCommandBuilder, ChatInputCommandInteraction, Client } from "discord.js";
-import { SlashCommand } from "../../dev/Interfaces/Command";
+import { SlashCommand } from "../../dev/Interfaces/Command.js";
 
 const pingCommand: SlashCommand = {
   data: new SlashCommandBuilder()

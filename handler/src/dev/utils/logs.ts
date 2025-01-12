@@ -106,4 +106,23 @@ async function warn(date: boolean, message: string): Promise<void> {
   }
 }
 
-export { debug, success, error, fatal, warn };
+/**
+ * Logs a info message with optional date.
+ * @param date - Whether to include the date in the log.
+ * @param message - The message to log.
+ */
+
+async function info(date: boolean, message: string): Promise<void> {
+    const chalk = await getChalk();
+    if (date) {
+        console.log(chalk.bgBlue(`[ ${new Date().toISOString()} | INFO ] `), message);
+    } else {
+        console.log(chalk.bgBlue("[ INFO ] "), message);
+    }
+
+    if (config.webhook["webhook-events"].errors.info) {
+        await webhookEvents("info", message, date);
+    }
+}
+
+export { debug, success, error, fatal, warn, info };

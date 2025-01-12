@@ -7,10 +7,10 @@
  * @param {string} token - The bot token used for authentication.
  */
 import { ShardingManager } from 'discord.js';
-import { warn, error, debug, success, fatal } from '../utils/logs';
+import { warn, error, debug, success, fatal, info } from '../utils/logs';
 import config from "../../../config.json";
 
-export default async function setupSharding(enableSharding = true, botScript: string | "./src/index.ts", token: string) {
+export default async function setupSharding(enableSharding: boolean, botScript: string | "../../src/index.ts", token: string) {
     if (!token) {
         error(true, 'Bot token is required to initialize the ShardingManager.');
         fatal(true, "Bot token is missing. At: /dev/Handler/ShardAgent.ts");
@@ -18,6 +18,7 @@ export default async function setupSharding(enableSharding = true, botScript: st
 
     if (!enableSharding) {
         if (config['enabled-default-logs'].startup) debug(true, 'Sharding is disabled. The bot will run without sharding.');
+        require("../../index");
         return;
     }
 

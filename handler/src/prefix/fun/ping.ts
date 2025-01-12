@@ -1,6 +1,6 @@
 // src/prefix/fun/ping.ts
 
-import { PrefixCommand } from "../../dev/Interfaces/Command.js";
+import { PrefixCommand } from "../../dev/Interfaces/Command";
 import { Client, Message } from "discord.js";
 
 const pingCommand: PrefixCommand = {
