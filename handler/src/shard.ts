@@ -2,6 +2,8 @@ import setupSharding from "./dev/Handlers/ShardAgent";
 import dotenv from "dotenv";
 dotenv.config();
 import { env } from "node:process";
+import validateToken from "./dev/validations/ValidateToken";
+validateToken()
 
 // Added backticks so the string is treated as a template literal
 const DISCORD_TOKEN = `${env.DISCORD_TOKEN}`;

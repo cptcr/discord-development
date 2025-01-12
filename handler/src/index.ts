@@ -24,8 +24,7 @@ const db = database();
  * 1) Create Discord Client
  ************************************************/
 
-const client = new Client({
-  intents: [
+const requiredIntents = [
     //Guild
         GatewayIntentBits.Guilds, 
         GatewayIntentBits.GuildMessages, 
@@ -46,7 +45,10 @@ const client = new Client({
     //Automod
         GatewayIntentBits.AutoModerationConfiguration,
         GatewayIntentBits.AutoModerationExecution,
-  ],
+  ]
+
+const client = new Client({
+  intents: requiredIntents,
   partials: [
     Partials.Channel,
     Partials.Message,
@@ -65,6 +67,10 @@ const client = new Client({
 const DISCORD_TOKEN = `${process.env.DISCORD_TOKEN}`;
 const CLIENT_ID = `${process.env.DISCORD_ID}`;
 const GUILD_ID = `${process.env.GUILD_ID}`; 
+
+if (!requiredIntents.every(intent => client.options.intents.has(intent))) {
+    fatal(true, "Missing required intent: " + requiredIntents.find(intent => !client.options.intents.has(intent)) + " in the client options. \nPlease enable them in the discord developer portal.");
+}
 
 /************************************************
  * 2) Load Prefix & Slash Commands
