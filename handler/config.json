@@ -7,7 +7,7 @@
     "webhook": {
         "config": {
             "disabled": false,
-            "url": "https://discord.com/api/webhooks/1327723037314908331/xr_ScAC7QHIid1ycuWiZctoKFR9Tdi1knpookl_dctwD3rkJloCSAO5N7JapFYXWUDvH",
+            "url": "https://discord.com/api/webhooks/",
             "roleId": null
         },
         "webhook-events": {
