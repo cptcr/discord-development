@@ -1,6 +1,6 @@
 {
     "plugins": [
-        "my-bot-plugin-hello"
+        "example"
     ],
     "enabled-default-logs": {
         "command-registry": true,
