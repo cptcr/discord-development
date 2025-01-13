@@ -1,36 +1,58 @@
 {
   "name": "discord-bot-handler-ts",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.3-beta",
+  "main": "src/index.ts",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Test: Done.\" && exit 1",
     "compile": "npx tsc",
     "start": "npx ts-node src/shard.ts",
     "tsc": "npx tsc && echo \"Compiling done. Starting up...\" && node ./dist/index.js",
-    "dev": "ts-node-dev --respawn --transpileOnly src/shard.ts"
+    "dev": "ts-node-dev --respawn src/shard.ts"
   },
   "keywords": [],
   "author": "cptcr",
   "license": "Apache-2.0",
   "description": "A discord bot handler supporting TS and JS with support for SQL and mongodb.",
   "dependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/express-session": "^1.18.1",
     "@types/node-cron": "^3.0.11",
+    "@types/react": "^19.0.5",
     "@types/readline-sync": "^1.4.8",
     "@types/sequelize": "^4.28.20",
+    "@types/tailwindcss": "^3.0.11",
+    "bcryptjs": "^2.4.3",
     "chalk": "^4.1.2",
     "discord.js": "^14.17.2",
     "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "fs": "^0.0.1-security",
     "inquirer": "^12.3.0",
-    "mongoose": "^8.9.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.4",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.12.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16",
     "path": "^0.12.7",
+    "react": "^19.0.0",
     "sequelize": "^6.37.5",
     "tslog": "^4.9.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.5",
+    "@types/nodemailer": "^6.4.17",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

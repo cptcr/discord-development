@@ -15,6 +15,6 @@
       "sourceMap": true                    // Enable source maps for easier debugging.
     },
     "include": ["src/**/*"],               // Include all files in the `src` folder.
-    "exclude": ["node_modules", "dist"]    // Exclude `node_modules` and compiled output.
+    "exclude": ["node_modules", "dist" ]    // Exclude `node_modules` and compiled output.
   }
   

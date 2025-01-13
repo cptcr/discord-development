@@ -1,8 +1,8 @@
 import { DiscordOAuth2URLGenerator, AuthScopes } from "./dev/utils/oauth2.url.generator"
-import { env } from "node:process";
+// import { env } from "node:process";
 import { DiscordPermissionsCalculator, PermissionGroup, PermissionScope, DiscordPermission } from "./dev/utils/calculate.permissions";
 
-const clientID = `${env.DISCORD_ID}`;
+const clientID = `1327721764155035821`;
 const calc = new DiscordPermissionsCalculator();
 const permissionGroups: PermissionGroup[] = calc.getPermissionGroups();
 
@@ -25,7 +25,7 @@ const res = calc.calculatePermissions();
 
 const gen = new DiscordOAuth2URLGenerator({
     clientId: clientID,
-    redirectUri: "http://localhost:3000/callback",
+    redirectUri: "",
     scopes: [
         AuthScopes.BOT,
         AuthScopes.IDENTIFY

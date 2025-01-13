@@ -2,6 +2,7 @@ import loadChalk from "./chalk";
 import Discord from "discord.js";
 import webhookEvents from "./webhookEvents";
 import config from "../../../config.json";
+import writeLog from "../other/write-logs";
 
 /**
  * Dynamically load `chalk` for ESM compatibility.
@@ -25,6 +26,8 @@ async function debug(date: boolean, message: string): Promise<void> {
     console.log(chalk.blue("[ DEBUG ] "), message);
   }
 
+  writeLog("console", message)
+
   if (config.webhook["webhook-events"].errors.debug) {
     await webhookEvents("debug", message, date);
   }
@@ -43,6 +46,8 @@ async function success(date: boolean, message: string): Promise<void> {
   } else {
     console.log(chalk.green("[ SUCCESS ] "), message);
   }
+
+  writeLog("console", message)
 
   if (config.webhook["webhook-events"].errors.success) {
     await webhookEvents("success", message, date);
@@ -63,6 +68,8 @@ async function error(date: boolean, message: string): Promise<void> {
     console.log(chalk.red("[ ERROR ] "), message);
   }
 
+  writeLog("console", message)
+
   if (config.webhook["webhook-events"].errors.error) {
     await webhookEvents("error", message, date);
   }
@@ -81,6 +88,8 @@ async function fatal(date: boolean, message: string): Promise<void> {
   } else {
     console.log(chalk.bgRed("[ FATAL ] "), message);
   }
+
+  writeLog("console", message)
 
   if (config.webhook["webhook-events"].errors.fatal) {
     await webhookEvents("fatal", message, date);
@@ -101,6 +110,8 @@ async function warn(date: boolean, message: string): Promise<void> {
     console.log(chalk.yellow("[ WARN ] "), message);
   }
 
+  writeLog("console", message)
+
   if (config.webhook["webhook-events"].errors.warn) {
     await webhookEvents("warn", message, date);
   }
@@ -120,9 +131,26 @@ async function info(date: boolean, message: string): Promise<void> {
         console.log(chalk.bgBlue("[ INFO ] "), message);
     }
 
+    writeLog("console", message)
+
     if (config.webhook["webhook-events"].errors.info) {
         await webhookEvents("info", message, date);
     }
 }
 
-export { debug, success, error, fatal, warn, info };
+async function custom(date: boolean, type: string, message: string): Promise<void> {
+    const chalk = await getChalk();
+    if (date) {
+        console.log(chalk.magenta(`[ ${new Date().toISOString()} | ${type.toUpperCase()} ] `), message);
+    } else {
+        console.log(chalk.magenta(`[ ${type.toUpperCase()} ] `), message);
+    }
+
+    writeLog("console", message)
+
+    if (config.webhook["webhook-events"].errors["custom-logs"]) {
+        await webhookEvents("custom", message, date);
+    }
+}
+
+export { debug, success, error, fatal, warn, info, custom };

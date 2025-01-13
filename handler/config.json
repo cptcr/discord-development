@@ -10,22 +10,27 @@
     "webhook": {
         "config": {
             "disabled": false,
-            "url": "https://discord.com/api/webhooks/",
+            "url": "https://discord.com/api/webhooks/1327938767620800573/7mEvmY-LuFQQBTIk_QO83sej-uI2mKp5iOcGSvQASNtfiFRs3b2GFnoJCz6gNokWemvV",
             "roleId": null
         },
         "webhook-events": {
-            "command-registry": false,
-            "startup": false,
-            "database-connection": false,
+            "command-registry": true,
+            "startup": true,
+            "database-connection": true,
             "errors": {
                 "fatal": true,
                 "debug": true,
                 "error": true,
-                "success": false,
+                "success": true,
                 "warn": true,
-                "info": false
+                "info": true,
+                "custom-logs": true
             }
         }
+    },
+    "other": {
+        "use-legal": true,
+        "use-written-logs": true
     }
     
 }

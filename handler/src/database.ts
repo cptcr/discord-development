@@ -36,22 +36,23 @@ async function connectToDatabase(): Promise<any> {
         if (!env.MONGO_HOST) {
             throw new Error("MONGO_HOST is not defined");
         }
-        await connectToMongoDB(env.MONGO_HOST);
+        await connectToMongoDB(env.MONGO_HOST, false);
     } else if (sql.includes(env.DB_TYPE as "mysql" | "postgres" | "mssql" | "sqlite" | "mariadb")) {
         const dbType = env.DB_TYPE as "mysql" | "postgres" | "mssql" | "sqlite" | "mariadb";
         const port = getEnvNumber("DB_PORT");
 
-        if (!env.DB_HOST || !env.DB_USER || !env.DB_PASSWORD || !env.DB_NAME) {
-            throw new Error("One or more required environment variables (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) are not defined");
+        if (!env.DB_HOST || !env.DB_USER || !env.DB_PASS || !env.DB_NAME) {
+            throw new Error("One or more required environment variables (DB_HOST, DB_USER, DB_PASS, DB_NAME) are not defined");
         }
 
         const db = await connectToSQLServer(
             env.DB_HOST,
             port,
             env.DB_USER,
-            env.DB_PASSWORD,
+            env.DB_PASS,
             env.DB_NAME,
-            dbType
+            dbType,
+            false
         );
         return db;
     } else {

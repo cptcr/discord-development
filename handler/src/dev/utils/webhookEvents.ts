@@ -28,13 +28,13 @@ async function processQueue() {
 
 /**
  * Log events using a webhook.
- * @param {"fatal" | "success" | "info" | "warn" | "debug" | "error"} type - The type of log.
+ * @param {"fatal" | "success" | "info" | "warn" | "debug" | "error" | "custom" | string} type - The type of log.
  * @param {string} message - The log message.
  * @param {boolean} timestamp - Whether to display the timestamp or not.
  * @returns {Promise<void>} - Sends the message to the webhook.
  */
 async function webhookEvents(
-    type: "fatal" | "success" | "info" | "warn" | "debug" | "error",
+    type: "fatal" | "success" | "info" | "warn" | "debug" | "error"| "custom" | string,
     message: string,
     timestamp: boolean = false
 ): Promise<void> {
@@ -58,6 +58,7 @@ async function webhookEvents(
         warn: "#FFFF00", // Yellow
         debug: "#808080", // Grey
         error: "#FF4500", // Red
+        custom: "#ff00ff" // Magenta
     };
 
     const payload = {

@@ -160,13 +160,13 @@ export enum AuthScopes {
   }
   
   /**
-   * A class to generate Discord OAuth2 authorization URLs.
-   */
-  export class DiscordOAuth2URLGenerator {
+ * A class to generate Discord OAuth2 authorization URLs.
+ */
+export class DiscordOAuth2URLGenerator {
     private static BASE_URL = "https://discord.com/oauth2/authorize";
   
     private clientId: string;
-    private redirectUri: string;
+    private redirectUri?: string;
     private scopes: AuthScopes[];
     private responseType: string;
     private permissions?: number;
@@ -177,7 +177,7 @@ export enum AuthScopes {
   
     constructor(options: OAuth2GeneratorOptions) {
       this.clientId = options.clientId;
-      this.redirectUri = options.redirectUri;
+      this.redirectUri = options.redirectUri; // Now optional
       this.scopes = options.scopes;
       this.responseType = options.responseType ?? "code";
       this.permissions = options.permissions;
@@ -195,12 +195,17 @@ export enum AuthScopes {
     public generateURL(): string {
       const params = new URLSearchParams();
   
+      // Always set the client_id, scope, and response_type
       params.set("client_id", this.clientId);
-      params.set("redirect_uri", this.redirectUri);
-      params.set("response_type", this.responseType);
       params.set("scope", this.scopes.join(" "));
+      params.set("response_type", this.responseType);
   
-      // If 'bot' scope is requested, include permissions and possibly guild_id & disable_guild_select
+      // Only set redirect_uri if provided
+      if (this.redirectUri) {
+        params.set("redirect_uri", this.redirectUri);
+      }
+  
+      // If 'bot' scope is requested, include bot-specific params
       if (this.scopes.includes(AuthScopes.BOT)) {
         if (typeof this.permissions === "number") {
           params.set("permissions", this.permissions.toString());
@@ -213,19 +218,17 @@ export enum AuthScopes {
         }
       }
   
-      // Add optional state
+      // Optional: state & prompt
       if (this.state) {
         params.set("state", this.state);
       }
-  
-      // Add optional prompt
       if (this.prompt) {
         params.set("prompt", this.prompt);
       }
   
       return `${DiscordOAuth2URLGenerator.BASE_URL}?${params.toString()}`;
     }
-}
+  }
   
 /**
    * Example usage:

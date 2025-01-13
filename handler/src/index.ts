@@ -18,6 +18,7 @@ import env from "dotenv";
 env.config();
 
 import database from "./database";
+import writeLog from "./dev/other/write-logs";
 const db = database();
 
 /************************************************
@@ -108,12 +109,18 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   try {
     await command.execute(client, interaction);
+    writeLog("interaction", `Executed command ${interaction.commandName} by ${interaction.user.id}/@${interaction.user.username}`)
   } catch (err) {
     error(true, `Error executing slash command "${interaction.commandName}": ${err}`);
+    writeLog("interaction", `Error executing slash command: ${interaction.command?.name}`);
+
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({ content: "Error executing slash command!", ephemeral: true });
+      writeLog("interaction", `Error executing slash command: ${interaction.command?.name}`);
+      writeLog("console", `Error executing slash command: ${interaction.command?.name}`);
     } else {
       await interaction.reply({ content: "Error executing slash command!", ephemeral: true });
+      writeLog("console", `Error executing slash command: ${interaction.command?.name}`);
     }
   }
 });
@@ -140,6 +147,7 @@ client.on("messageCreate", async (message) => {
 
   try {
     await command.execute(client, message, args);
+    writeLog("interaction", `Executed prefix command ${commandName} by ${message.author.id}/@${message.author.username}`)
   } catch (err) {
     error(true, `Error executing prefix command "${commandName}": ${err}`);
     await message.reply("There was an error executing that command!");

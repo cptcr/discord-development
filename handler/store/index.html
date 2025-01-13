@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Plugin Store</title>
+
+    <!-- Meta Tags -->
+    <meta name="author" content="cptcr" />
+    <meta
+      name="description"
+      content="Official Plugin Store for the TypeScript based discord bot handler"
+    />
+
+    <!-- Official Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Optional: Tailwind Configuration for a custom background image -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            backgroundImage: {
+              'hero-pattern':
+                "url('https://source.unsplash.com/1920x1080/?abstract,dark')",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-gradient-to-tr from-gray-900 to-gray-800 text-white font-sans flex flex-col">
+    <!-- Header / Nav -->
+    <header
+      class="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-md shadow-md"
+    >
+      <!-- Left: Plugin Icon & Title -->
+      <div class="flex items-center space-x-3">
+        <!-- Puzzle Piece Icon from Heroicons -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-8 h-8 text-blue-500"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 2.25c-.91 0-1.645.735-1.645 1.645v1.06c0 .596-.483 1.08-1.08 1.08H8.215c-.91 0-1.645.735-1.645 1.645v1.424c0 .833.675 1.508 1.508 1.508H9.05a.75.75 0 01.53 1.28l-.963.963c-.586.586-.586 1.534 0 2.12l.963.963c.291.291.733.291 1.024 0l.53-.53a.75.75 0 011.28.53v1.275c0 .833.675 1.508 1.508 1.508h1.424c.91 0 1.645-.735 1.645-1.645v-.06c0-.596.483-1.08 1.08-1.08h1.06c.91 0 1.645-.735 1.645-1.645v-1.424c0-.833-.675-1.508-1.508-1.508h-.834a.75.75 0 01-.53-1.28l.53-.53c.291-.291.291-.733 0-1.024l-.963-.963a.75.75 0 01-.22-.53v-.834c0-.833-.675-1.508-1.508-1.508h-1.424z"
+          />
+        </svg>
+        <h1 class="text-xl font-bold tracking-wide">Plugin Store</h1>
+      </div>
+      <!-- Right: Navigation Link(s) -->
+      <nav>
+        <a
+          href="https://github.com/cptcr/discord-development/tree/main/handler/store/README.md"
+          class="text-sm font-medium hover:text-blue-400 transition-colors"
+        >
+          GitHub
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main Content / Hero -->
+    <main
+      class="flex flex-1 items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat relative"
+    >
+      <!-- Overlay to darken the background image slightly -->
+      <div class="w-full h-full absolute inset-0 bg-black/50 pointer-events-none"></div>
+
+      <!-- Hero Card -->
+      <div
+        class="relative z-10 max-w-xl w-full mx-4 p-8 bg-white/5 backdrop-blur-md rounded-xl shadow-2xl text-center"
+      >
+        <h2 class="text-3xl md:text-5xl font-extrabold mb-6">
+          UNDER DEVELOPMENT
+        </h2>
+        <p class="text-base md:text-lg mb-8 text-gray-200">
+          This will be the plugin store for the TypeScript based discord bot handler.
+        </p>
+        <div>
+          <a
+            href="https://github.com/cptcr/discord-development/tree/main/handler/store/README.md"
+            class="inline-block px-8 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-lg hover:bg-blue-500 hover:scale-105 transition-transform duration-300"
+          >
+            View GitHub
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center bg-black/20 backdrop-blur-md shadow-inner">
+      <p class="text-sm text-gray-300">
+        &copy; 2025 CPTCR Development. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

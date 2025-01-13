@@ -1,0 +1,62 @@
+[2025-01-13T21:59:03.283Z] [CONSOLE] Connecting to MongoDB server...
+[2025-01-13T21:59:03.291Z] [CONSOLE] Loading Prefix Commands...
+[2025-01-13T21:59:03.292Z] [CONSOLE] Loaded Prefix Command: ping
+[2025-01-13T21:59:03.292Z] [CONSOLE] Loaded Slash Command: ping
+[2025-01-13T21:59:03.292Z] [CONSOLE] Loading Slash Commands...
+[2025-01-13T21:59:03.542Z] [CONSOLE] Loaded event: guildMemberAdd
+[2025-01-13T21:59:03.857Z] [CONSOLE] Loaded schedule: dailyReminder
+[2025-01-13T21:59:03.543Z] [CONSOLE] Successfully loaded 1 events (including subfolders)
+[2025-01-13T21:59:03.857Z] [CONSOLE] Successfully initialized 1 schedules.
+[2025-01-13T21:59:03.859Z] [CONSOLE] Plugin loaded: example (v1.0.0)
+[2025-01-13T21:59:04.015Z] [CONSOLE] Successfully connected to MongoDB server!
+[2025-01-13T21:59:04.017Z] [CONSOLE] Database credentials have been updated.
+[2025-01-13T21:59:04.315Z] [CONSOLE] Registered 1 global slash commands.
+[2025-01-13T21:59:04.475Z] [CONSOLE] Client logged in
+[2025-01-13T21:59:04.585Z] [CONSOLE] Logged in as Central#6429!
+[2025-01-13T21:59:39.544Z] [CONSOLE] Connecting to MongoDB server...
+[2025-01-13T21:59:39.550Z] [CONSOLE] Loading Prefix Commands...
+[2025-01-13T21:59:39.550Z] [CONSOLE] Loaded Prefix Command: ping
+[2025-01-13T21:59:39.550Z] [CONSOLE] Loading Slash Commands...
+[2025-01-13T21:59:39.550Z] [CONSOLE] Loaded Slash Command: ping
+[2025-01-13T21:59:39.792Z] [CONSOLE] Loaded event: guildMemberAdd
+[2025-01-13T21:59:39.792Z] [CONSOLE] Successfully loaded 1 events (including subfolders)
+[2025-01-13T21:59:40.095Z] [CONSOLE] Loaded schedule: dailyReminder
+[2025-01-13T21:59:40.096Z] [CONSOLE] Successfully initialized 1 schedules.
+[2025-01-13T21:59:40.098Z] [CONSOLE] Plugin loaded: example (v1.0.0)
+[2025-01-13T21:59:40.298Z] [CONSOLE] Successfully connected to MongoDB server!
+[2025-01-13T21:59:40.300Z] [CONSOLE] Database credentials have been updated.
+[2025-01-13T21:59:40.442Z] [CONSOLE] Registered 1 global slash commands.
+[2025-01-13T21:59:40.810Z] [CONSOLE] Client logged in
+[2025-01-13T21:59:40.819Z] [CONSOLE] Logged in as Central#6429!
+[2025-01-13T23:06:36.867Z] [CONSOLE] Connecting to MongoDB server...
+[2025-01-13T23:06:36.874Z] [CONSOLE] Loading Prefix Commands...
+[2025-01-13T23:06:36.874Z] [CONSOLE] Loaded Prefix Command: ping
+[2025-01-13T23:06:36.875Z] [CONSOLE] Loaded Slash Command: ping
+[2025-01-13T23:06:36.875Z] [CONSOLE] Loading Slash Commands...
+[2025-01-13T23:06:36.877Z] [CONSOLE] Loaded event: guildCreate
+[2025-01-13T23:06:37.133Z] [CONSOLE] Loaded event: guildMemberAdd
+[2025-01-13T23:06:37.134Z] [CONSOLE] Successfully loaded 2 events (including subfolders)
+[2025-01-13T23:06:37.466Z] [CONSOLE] Loaded schedule: dailyReminder
+[2025-01-13T23:06:37.466Z] [CONSOLE] Successfully initialized 1 schedules.
+[2025-01-13T23:06:37.468Z] [CONSOLE] Plugin loaded: example (v1.0.0)
+[2025-01-13T23:06:37.486Z] [CONSOLE] Error connecting to MongoDB server: MongooseServerSelectionError: Server selection timed out after 2000 ms
+[2025-01-13T23:06:37.965Z] [CONSOLE] Registered 1 global slash commands.
+[2025-01-13T23:06:38.185Z] [CONSOLE] Client logged in
+[2025-01-13T23:06:38.295Z] [CONSOLE] Logged in as Central#6429!
+[2025-01-13T23:07:04.585Z] [CONSOLE] Connecting to MongoDB server...
+[2025-01-13T23:07:04.591Z] [CONSOLE] Loading Prefix Commands...
+[2025-01-13T23:07:04.591Z] [CONSOLE] Loaded Prefix Command: ping
+[2025-01-13T23:07:04.592Z] [CONSOLE] Loading Slash Commands...
+[2025-01-13T23:07:04.592Z] [CONSOLE] Loaded Slash Command: ping
+[2025-01-13T23:07:04.594Z] [CONSOLE] Loaded event: guildCreate
+[2025-01-13T23:07:04.830Z] [CONSOLE] Loaded event: guildMemberAdd
+[2025-01-13T23:07:04.831Z] [CONSOLE] Successfully loaded 2 events (including subfolders)
+[2025-01-13T23:07:05.132Z] [CONSOLE] Loaded schedule: dailyReminder
+[2025-01-13T23:07:05.133Z] [CONSOLE] Successfully initialized 1 schedules.
+[2025-01-13T23:07:05.134Z] [CONSOLE] Plugin loaded: example (v1.0.0)
+[2025-01-13T23:07:05.271Z] [CONSOLE] Successfully connected to MongoDB server!
+[2025-01-13T23:07:05.273Z] [CONSOLE] Database credentials have been updated.
+[2025-01-13T23:07:05.580Z] [CONSOLE] Registered 1 global slash commands.
+[2025-01-13T23:07:05.759Z] [CONSOLE] Client logged in
+[2025-01-13T23:07:05.764Z] [CONSOLE] Logged in as Central#6429!
+[2025-01-13T23:14:43.165Z] [GUILDS] Bot joined guild: CPTCR Hosting (ID: 1121353922355929129)

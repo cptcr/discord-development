@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Sequelize } from 'sequelize';
-import { warn, debug, success, error, fatal } from '../utils/logs';
+import { warn, debug, success, error, fatal, custom } from '../utils/logs';
 import inquirer from 'inquirer';
 import fs from 'fs';
 import * as path from 'path';
@@ -50,7 +50,7 @@ async function overwriteDatabaseCredentials(
         });
 
         await fs.promises.writeFile(envFilePath, updatedEnvLines.join('\n'), 'utf8');
-        success(true, "Database credentials have been updated.");
+        custom(true, "DATABASE", "Database credentials have been updated.");
     } catch (err) {
         error(true, `Failed to update database credentials. \n${err}`);
     }
@@ -116,16 +116,17 @@ async function retry(dbType: string): Promise<any> {
 /**
  * Creates a connection to a MongoDB server.
  * @param {string} uri - The MongoDB connection string.
+ * @param {boolean} silent - Connect to DB without logs.
  */
-async function connectToMongoDB(uri: string): Promise<void> {
+async function connectToMongoDB(uri: string, silent: boolean): Promise<void> {
 
-    if (config['enabled-default-logs']['database-connection']) {
-        await warn(true, 'Connecting to MongoDB server...');
+    if (config['enabled-default-logs']['database-connection'] && !silent) {
+        custom(true, "DATABASE", 'Connecting to MongoDB server...');
     }
     try {
         await mongoose.connect(uri);
-        if (config['enabled-default-logs']['database-connection']) {
-            await success(true, 'Successfully connected to MongoDB server!');
+        if (config['enabled-default-logs']['database-connection'] && !silent) {
+            custom(true, "DATABASE", 'Successfully connected to MongoDB server!');
         }
         
         // Overwrite MongoDB credentials in .env
@@ -135,7 +136,7 @@ async function connectToMongoDB(uri: string): Promise<void> {
 
         // Retry connection
         const retryUri = await retry('mongoose');
-        await connectToMongoDB(retryUri);
+        await connectToMongoDB(retryUri, false);
     }
 }
 
@@ -148,6 +149,7 @@ async function connectToMongoDB(uri: string): Promise<void> {
  * @param {string} password - The database user's password.
  * @param {string} database - The name of the database to connect to.
  * @param {string} dialect - The SQL database dialect (mysql, postgres, mariadb, sqlite, mssql).
+ * @param {boolean} silent - Connect to DB without logs
  * @returns {Promise<Sequelize>} - The Sequelize database connection instance.
  */
 async function connectToSQLServer(
@@ -156,10 +158,11 @@ async function connectToSQLServer(
     user: string,
     password: string,
     database: string,
-    dialect: 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mssql'
+    dialect: 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mssql',
+    silent: boolean
 ): Promise<Sequelize> {
-    if (config['enabled-default-logs']['database-connection']) {
-        await warn(true, `Connecting to ${dialect.toUpperCase()} database server...`);
+    if (config['enabled-default-logs']['database-connection'] && !silent) {
+        custom(true, "DATABASE", `Connecting to ${dialect.toUpperCase()} database server...`);
     }
     
     try {
@@ -170,8 +173,8 @@ async function connectToSQLServer(
         });
 
         await sequelize.authenticate();
-        if (config['enabled-default-logs']['database-connection']) {
-            await success(true, `Successfully connected to ${dialect.toUpperCase()} server!`);
+        if (config['enabled-default-logs']['database-connection'] && !silent) {
+            custom(true, "DATABASE", `Successfully connected to ${dialect.toUpperCase()} server!`);
         }
         
         // Overwrite SQL database credentials in .env
@@ -189,7 +192,8 @@ async function connectToSQLServer(
             sqlCredentials.user,
             sqlCredentials.password,
             sqlCredentials.database,
-            dialect
+            dialect,
+            false
         );
     }
 }

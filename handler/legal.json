@@ -1,0 +1,87 @@
+{
+    "privacy-policy": {
+      "title": "Privacy Policy",
+      "description": "We are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your data when you interact with OurBot. By using OurBot, you agree to this policy in its entirety.",
+      "url": "https://example.com/privacy",
+      "color": 16734003, 
+      "author": {
+        "name": "OurBot Team",
+        "url": "https://example.com",
+        "icon_url": "https://example.com/author-icon.png"
+      },
+      "thumbnail": {
+        "url": "https://example.com/thumbnail.png"
+      },
+      "image": {
+        "url": "https://example.com/large-image.png"
+      },
+      "timestamp": "2025-01-13T00:00:00.000Z",
+      "footer": {
+        "text": "© 2025 OurBot",
+        "icon_url": "https://example.com/footer-icon.png"
+      },
+      "fields": [
+        {
+          "name": "Data Collection",
+          "value": "• We collect and process messages only as needed for bot functionality.\n• No sensitive data (e.g., legal names, addresses) is intentionally stored.\n• Temporary logs may be kept to ensure reliability.",
+          "inline": false
+        },
+        {
+          "name": "Data Usage",
+          "value": "• Data is used solely to provide or improve bot features.\n• We do not sell or share data with third parties.\n• Data may be anonymized for usage statistics.",
+          "inline": false
+        },
+        {
+          "name": "User Rights",
+          "value": "• You can request removal of stored data.\n• We reserve the right to update this policy; continued use of OurBot indicates acceptance of any changes.",
+          "inline": false
+        }
+      ]
+    },
+  
+    "terms-of-service": {
+      "title": "Terms of Service",
+      "description": "These Terms of Service (\"Terms\") govern your use of OurBot. By accessing or using OurBot, you agree to be bound by these Terms. If you do not agree, do not use OurBot.",
+      "url": "https://example.com/tos",
+      "color": 16734003, 
+      "author": {
+        "name": "OurBot Team",
+        "url": "https://example.com",
+        "icon_url": "https://example.com/author-icon.png"
+      },
+      "thumbnail": {
+        "url": "https://example.com/thumbnail.png"
+      },
+      "image": {
+        "url": "https://example.com/large-image.png"
+      },
+      "timestamp": "2025-01-13T00:00:00.000Z",
+      "footer": {
+        "text": "© 2025 OurBot",
+        "icon_url": "https://example.com/footer-icon.png"
+      },
+      "fields": [
+        {
+          "name": "1. Compliance with Discord Policies",
+          "value": "All users must follow Discord’s Terms of Service and Community Guidelines while using OurBot. Violations may result in immediate termination of access.",
+          "inline": false
+        },
+        {
+          "name": "2. License & Restrictions",
+          "value": "You are granted a limited, non-exclusive right to use OurBot. You may not abuse, exploit, or reverse-engineer OurBot or its services.",
+          "inline": false
+        },
+        {
+          "name": "3. Liability & Disclaimer",
+          "value": "OurBot is provided \"as is\" without warranties of any kind. We are not liable for any damages or losses resulting from use or inability to use OurBot.",
+          "inline": false
+        },
+        {
+          "name": "4. Changes & Updates",
+          "value": "We reserve the right to modify or discontinue OurBot at any time without notice. Changes to these Terms are effective upon posting.",
+          "inline": false
+        }
+      ]
+    }
+  }
+  

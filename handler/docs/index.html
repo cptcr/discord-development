@@ -181,6 +181,14 @@
                 Developing Plugins
               </a>
             </li>
+            <li>
+              <a
+                href="#legal-handling"
+                class="block text-sm px-2 py-1 rounded hover:bg-gray-700 hover:text-blue-400 transition-colors"
+              >
+                Legal Handling
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -235,7 +243,7 @@
           <div class="bg-gray-800 p-4 rounded-lg">
             <p class="font-medium">Sharding Agent</p>
             <p class="text-gray-400">
-              Shard your bot to make it more efficient
+              Sharding - done EASY. Enable and manage sharding easily just using the .env file!
             </p>
           </div>
           <div class="bg-gray-800 p-4 rounded-lg">
@@ -263,6 +271,18 @@
           <div class="bg-gray-800 p-4 rounded-lg">
             <p class="font-medium">File Cache System</p>
             <p class="text-gray-400">Store data in files for faster access</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">Plugin System</p>
+            <p class="text-gray-400">
+              Load plugins to extend functionality
+            </p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="font-medium">File written logs</p>
+            <p class="text-gray-400">
+              Interaction logs, Console logs and Guild joins are now logged into files! (can be disabled in config.json)
+            </p>
           </div>
           <div class="bg-gray-800 p-4 rounded-lg">
             <p class="font-medium">Plugin System</p>
@@ -348,6 +368,10 @@ git clone https://github.com/cptcr/discord-development/tree/main/handler.git
                             "warn": true, // Enable warn webhook events
                             "info": true // Enable info webhook events
                         }
+                    },
+                    "other": {
+                        "use-legal": true, // Enable legal handling (see more below on this page)
+                        "use-written-logs": true , // Enable written logs
                     }
                 }
                 
@@ -365,14 +389,19 @@ git clone https://github.com/cptcr/discord-development/tree/main/handler.git
             <pre class="bg-gray-900 p-3 rounded relative group">
               <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
               <code class="language-bash">#=============================
-                #=============================
                 #        DISCORD BOT
                 #=============================
                 # Discord bot credentials and settings
-                export DISCORD_TOKEN = "";   # Your Discord bot token (required to authenticate with the Discord API)
-                export DISCORD_ID = "";      # Bot ID (unique identifier for your bot)
-                export PREFIX = "";          # Prefix for text-based bot commands (e.g., "!", "?")
-                export GUILD_ID = ;          # Guild (server) ID for faster slash command updates
+                export DISCORD_TOKEN = ""  
+                # Your Discord bot token (required to authenticate with the Discord API)
+                export DISCORD_ID = ""     
+                # Bot ID (unique identifier for your bot)
+                export PREFIX = "?"        
+                # Prefix for text-based bot commands (e.g., "!", "?")
+                export GUILD_ID = ""     
+                # Guild (server) ID for faster slash command updates
+                export USE_SHARDING = false
+                # Enables sharding for the bot (recommended for large servers), can be set to "auto" to automatically enable sharding if the bot is running on a large server, "false" to disble sharding, or a number to specify the number of shards to use
                 
                 #=============================
                 #    DATABASE CONFIGURATION
@@ -384,23 +413,29 @@ git clone https://github.com/cptcr/discord-development/tree/main/handler.git
                 #  - sqlite
                 #  - mssql
                 #  - mongoose (for MongoDB)
-                export DB_TYPE = "mongoose";  # Specify the database type here (e.g., mysql, mongoose)
+                export DB_TYPE = "mongoose"
+                # Specify the database type here (e.g., mysql, mongoose)
                 
                 #=============================
                 #       SQL DATABASE
                 #=============================
                 # SQL database connection details (only required if DB_TYPE is a SQL-based database)
-                export DB_HOST = "";         # Database server hostname (IP or domain)
-                export DB_USER = "";         # Database username
-                export DB_PASS = "";         # Database password
-                export DB_NAME = "";         # Database name to connect to
-                export DB_PORT = "";         # Port number for the database server (default ports vary by DB type)
+                export DB_HOST = ""
+                # Database server hostname (IP or domain)
+                export DB_USER = ""
+                # Database username
+                export DB_PASS = ""
+                # Database password
+                export DB_NAME = ""
+                # Database name to connect to
+                export DB_PORT = "0"
+                # Port number for the database server (default ports vary by DB type)
                 
                 #=============================
                 #      MONGODB DATABASE
                 #=============================
                 # MongoDB connection details (only required if DB_TYPE is "mongoose")
-                export MONGO_HOST = "";      
+                export MONGO_HOST = ""
                 # MongoDB connection string (e.g., mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>) Warning: This may or may not be different if you use a self hosted MongoDB server
 </code>
             </pre>
@@ -684,6 +719,123 @@ export async function handleWelcomeCommand(args: string[]) {
           </div>
         </div>
       </section>
+
+      <!-- Legal Handling -->
+      <div id="legal-handling" class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-blue-300">
+          Legal Handling
+        </h3>
+        <p class="text-gray-300 mb-4">
+          Create your own Privacy Policy and Terms of Service embed. People must accept them before using the bot. The data will dynamically be stored in your preferred database.
+        </p>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <pre class="bg-gray-900 p-3 rounded relative group">
+            <button class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-blue-500 text-white text-sm px-2 py-1 rounded transition-colors">Copy</button>
+            <code class="language-json">{
+              "privacy-policy": {
+                  "title": "Example Embed",
+                  "description": "This is a full embed showcasing multiple fields and styling options.",
+                  "url": "https://example.com",
+                  "color": 0x1ABC9C, // Hex literal for color (#1ABC9C)
+            
+                  // Embed authorship
+                  "author": {
+                    "name": "Author Name",
+                    "url": "https://example.com",
+                    "icon_url": "https://example.com/author-icon.png"
+                  },
+            
+                  // Embed images
+                  "thumbnail": {
+                    "url": "https://example.com/thumbnail.png"
+                  },
+                  "image": {
+                    "url": "https://example.com/large-image.png"
+                  },
+            
+                  // Timestamp in ISO8601 format
+                  "timestamp": "2025-01-13T00:00:00.000Z",
+            
+                  // Footer text and icon
+                  "footer": {
+                    "text": "Footer text here",
+                    "icon_url": "https://example.com/footer-icon.png"
+                  },
+            
+                  // Fields: short sections in the embed; can be inline or block
+                  "fields": [
+                    {
+                      "name": "Regular Field",
+                      "value": "Some value here",
+                      "inline": false
+                    },
+                    {
+                      "name": "Inline Field 1",
+                      "value": "Some value here",
+                      "inline": true
+                    },
+                    {
+                      "name": "Inline Field 2",
+                      "value": "Some value here",
+                      "inline": true
+                    }
+                  ]
+                },
+              "terms-of-service": {
+                  "title": "Example Embed",
+                  "description": "This is a full embed showcasing multiple fields and styling options.",
+                  "url": "https://example.com",
+                  "color": 0x1ABC9C, // Hex literal for color (#1ABC9C)
+            
+                  // Embed authorship
+                  "author": {
+                    "name": "Author Name",
+                    "url": "https://example.com",
+                    "icon_url": "https://example.com/author-icon.png"
+                  },
+            
+                  // Embed images
+                  "thumbnail": {
+                    "url": "https://example.com/thumbnail.png"
+                  },
+                  "image": {
+                    "url": "https://example.com/large-image.png"
+                  },
+            
+                  // Timestamp in ISO8601 format
+                  "timestamp": "2025-01-13T00:00:00.000Z",
+            
+                  // Footer text and icon
+                  "footer": {
+                    "text": "Footer text here",
+                    "icon_url": "https://example.com/footer-icon.png"
+                  },
+            
+                  // Fields: short sections in the embed; can be inline or block
+                  "fields": [
+                    {
+                      "name": "Regular Field",
+                      "value": "Some value here",
+                      "inline": false
+                    },
+                    {
+                      "name": "Inline Field 1",
+                      "value": "Some value here",
+                      "inline": true
+                    },
+                    {
+                      "name": "Inline Field 2",
+                      "value": "Some value here",
+                      "inline": true
+                    }
+                  ]
+                }
+          }
+</code>
+          </pre>
+        </div>
+      </div>
+    </section>
 
       <!-- Credits Section -->
       <section id="credits" class="mb-12">

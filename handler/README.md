@@ -4,13 +4,24 @@ A simple discord bot handler with advanced features and a high customization. <b
 # Features 
 - **Slash Command Handler:** Simple command handler so you can use slash commands.
 - **Prefix Command Handler:** Simple command handler so you can use prefix commands.
-- **Sharding Agent:** Shard your bot to make it more efficient.
+- **Sharding Agent:** Shard your bot to make it more efficient. [New: Now supports a dynamic handling of sharding.]
 - **Dynamic Database Support:** Supports variuos types of databases. Doesnt matter if you use a SQL based database or a MongoDB database.
 - **WebHook Events:** Supports WebHook events so you can get notified when something happens.
 - **Event Handler:** Build-in event handler so you can build files to respond to events from discord.
 - **Scheduled Tasks:** Automate recurring actions.
 - **File Cache System**: Store data in files for faster access.
 - **Plugin System:** Load plugins to extend the functionality of your bot.
+- **File written logs:** Interaction logs, Console logs and Guild joins are now logged into files! (can be disabled in config.json)
+
+# Changelog (v2.4-beta)
+- Added custom types for log events and webhook events (see config.json and src/dev/utils/logs.ts) [ WILL BE SHOWN IN MAGENTA ]
+- Added support for type "string" instead of fixxed types of log to WebHook Events (see src/dev/utils/webhookEvents.ts)
+- Added legal.json and logic which forces the user to agree to the privacy police and terms of service before using the app (see src/dev/other/tos-and-pp.ts and legal.json, can be disabled in config.json)
+- Added parameter "silent: boolean" to /src/dev/database/connectToDatabase.ts which will start the database without any type of logs (neither webhook or console logs) for functions which do not support a dynamic import of the database.
+- Added sharding environment variable to enable sharding. Enables sharding for the bot (recommended for large servers), can be set to "auto" to automatically enable sharding if the bot is running on a large server, "false" to disble sharding, or a number to specify the number of shards to use
+- Edited documentation to the latest updates and added a new section for the new features (see README.md)
+- Added all new features to README.md
+- Added functions for Oauth2 URL generation and Flags calculation (see /src/dev/utils/oauth2.url.generator.ts and /src/dev/utils/calculate.permissions.ts)
 
 # Installation
 1. Clone the repository.
@@ -32,6 +43,10 @@ or:
 ```bash
 npm run start
 ```
+
+# Information for plugins:
+- Plugin File Name MUST be the same as the plugin name.
+- If you add a plugin, make sure to add the plugin name into config.json["plugins"] array.
 
 [View Full Documentation Here](https://cptcr.cc/discord-development/docs/handler/)
 
@@ -68,3 +83,6 @@ https://github.com/pterodactyl/panel/tree/1.0-develop/database/Seeders/eggs
 This project is licensed under the Apache 2.0 License which is a permissive free software license written by the Apache Software Foundation. <br>
 The license allows users to freely use, modify, and distribute the software. <br>
 https://www.apache.org/licenses/LICENSE-2.0
+
+# INFORMATION
+IF YOU HAVE ANY ISSUE PLEASE OPEN AN ISSUE ON GITHUB, IF YOU HAVE AN ISSUE AND A SOLUTION PLEASE OPEN A PULL REQUEST.
